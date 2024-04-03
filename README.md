@@ -5,8 +5,10 @@ Página enfocado a la venta de electronicos desarollado con un stack MEAN: <br>
 -Angular <br>
 -Node.js <br>
 
+<p align="center">
+  <img src="DigitalNest-logo.jpg" style="width: 25%;" />
+</p>
+
+<p align="center">
 Proyecto final para la materia de Aplicaciones Web Escalables.
-<br>
-<div style="width: 100%">
-  <img src="DigitalNest-logo.jpg" style="width: 25%; display: block; margin: 0 auto;">
-</div>
+</p>
