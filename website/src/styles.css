@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.text-white{
+    color: #fff;
+}
+
+.primary{
+    background-color: #271731;
+}
+
+.primary-accent{
+    background-color: #A972FC;
+}
+
+.secondary{
+    background-color: #B5FF96;
+}
+
+.tertiary{
+    background-color: #70CAFB;
+}
