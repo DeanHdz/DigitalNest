@@ -11,9 +11,9 @@ const reviewSchema = new mongoose.Schema({
         ref: 'Product',
         required: [true, 'Product is required']
     },
-    review: {
+    comment: {
         type: String,
-        required: [true, 'Review is required']
+        required: [true, 'Comment is required']
     },
     rating: {
         type: Number,

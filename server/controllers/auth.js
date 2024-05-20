@@ -45,6 +45,32 @@ const login = (req = request, res = response) => {
     )
 }
 
+const register = (req = request, res = response) => {
+    const { username, email, password } = req.body;
+
+    if (!username || !email || !password) {
+        return res.status(400).json({
+            msg: "Faltan campos por llenar"
+        });
+    }
+
+    const user = new User({ username, email, password });
+    user.save().then(
+        (user) => {
+            res.status(201).json({
+                msg: "User created"
+            });
+        }
+    ).catch(
+        (error) => {
+            res.status(400).json({
+                msg: "User not created: " + error
+            });
+        }
+    );
+}
+
 module.exports = {
-    login
+    login,
+    register
 }

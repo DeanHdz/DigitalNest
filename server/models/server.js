@@ -10,6 +10,11 @@ class Server {
 
         this.usersPath = "/api/users";
         this.authPath = "/api/auth";
+        this.productsPath = "/api/products";
+        this.categoriesPath = "/api/categories";
+        this.cartsPath = "/api/carts";
+        this.ordersPath = "/api/orders";
+        this.reviewsPath = "/api/reviews";
 
         this.middlewares();
         this.routes();
@@ -21,6 +26,11 @@ class Server {
         //Utilizar routes definidos en los archivos
         this.app.use(this.usersPath, require("../routes/users"));
         this.app.use(this.authPath, require("../routes/auth"));
+        this.app.use(this.productsPath, require("../routes/products"));
+        this.app.use(this.categoriesPath, require("../routes/categories"));
+        this.app.use(this.cartsPath, require("../routes/carts"));
+        this.app.use(this.ordersPath, require("../routes/orders"));
+        this.app.use(this.reviewsPath, require("../routes/reviews"));
 
         //Responses para cuando no encuentra la ruta solicitada
         this.app.get("*", function (req, res) {
