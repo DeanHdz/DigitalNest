@@ -24,6 +24,8 @@ export class LoginPage {
       next: (response : any) => {
         console.log(response);
         localStorage.setItem("auth_token", response.token);
+        //Set in local storage a user json, containing the user id, user name and email
+        //localStorage.setItem("user", JSON.stringify(response.user));
       },
       error: (error : any) => {
         console.log(error);
