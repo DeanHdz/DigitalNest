@@ -1,18 +1,20 @@
 const { Router } = require('express');
 const { getOrders, getOrder, getOrdersByUserId, createOrder, updateOrder, deleteOrder } = require('../controllers/orders');
+const { validateJWT } = require('../middlewares/verifyJWT');
+const { verifyAdminRole } = require('../middlewares/verifyAdminRole');
 
 const router = Router();
 
-router.get("/", getOrders);
+router.get("/", [validateJWT, verifyAdminRole], getOrders);
 
-router.get("/:id", getOrder);
+router.get("/:id", [validateJWT], getOrder);
 
-router.get("/:userId", getOrdersByUserId);
+router.get("/:userId", [validateJWT], getOrdersByUserId);
 
-router.post("/", createOrder);
+router.post("/", [validateJWT], createOrder);
 
-router.put("/:id", updateOrder);
+router.put("/:id", [validateJWT], updateOrder);
 
-router.delete("/:id", deleteOrder);
+router.delete("/:id", [validateJWT, verifyAdminRole], deleteOrder);
 
 module.exports = router;
