@@ -35,8 +35,8 @@ const getUser = (req = request, res = response) => {
 }
 
 const createUser = (req = request, res = response) => {
-    const { name, email, password } = req.body;
-    const user = new User({ name, email, password });
+    const { username, email, password } = req.body;
+    const user = new User({ username, email, password });
     user.save().then(
         (user) => {
             res.status(201).json({
@@ -54,9 +54,9 @@ const createUser = (req = request, res = response) => {
 
 const updateUser = (req = request, res = response) => {
     const id = req.params.id;
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
     User.findByIdAndUpdate
-        (id, { name, email, password }).then(
+        (id, { username, email, password }).then(
             () => {
                 res.status(200).json({
                     msg: "User updated"

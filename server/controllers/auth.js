@@ -4,22 +4,22 @@ const { generateJWT } = require('../helpers/jwt');
 
 const login = (req = request, res = response) => {
 
-    const { user, password } = req.body;
+    const { email, password } = req.body;
 
-    if (!user || !password) {
+    if (!email || !password) {
         return res.status(400).json({
             msg: "Faltan campos por llenar"
         });
     }
 
-    User.findOne({ user: user, password: password }).then(
+    User.findOne({ email: email, password: password }).then(
         (result) => {
             if (result) {
                 //Generacion de nuestro JWT
-                generateJWT(user).then(
+                generateJWT(email).then(
                     (token) => {
                         res.status(200).json({
-                            msh: "Login OK",
+                            msg: "Login OK",
                             token
                         })
                     }
@@ -39,7 +39,7 @@ const login = (req = request, res = response) => {
     ).catch(
         (error) => {
             res.status(500).json({
-                msg: "Error al iniciar sesión"
+                msg: "Error al iniciar sesión" + error
             })
         }
     )
