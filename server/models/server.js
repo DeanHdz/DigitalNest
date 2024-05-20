@@ -9,6 +9,7 @@ class Server {
         this.connection_string = process.env.CONNECTION_STRING;
 
         this.usersPath = "/api/users";
+        this.authPath = "/api/auth";
 
         this.middlewares();
         this.routes();
@@ -19,6 +20,7 @@ class Server {
 
         //Utilizar routes definidos en los archivos
         this.app.use(this.usersPath, require("../routes/users"));
+        this.app.use(this.authPath, require("../routes/auth"));
 
         //Responses para cuando no encuentra la ruta solicitada
         this.app.get("*", function (req, res) {
@@ -28,6 +30,18 @@ class Server {
         });
 
         this.app.post("*", function (req, res) {
+            res.status(404).json({
+                msg: "Error ruta no encontrada",
+            });
+        });
+
+        this.app.put("*", function (req, res) {
+            res.status(404).json({
+                msg: "Error ruta no encontrada",
+            });
+        });
+
+        this.app.delete("*", function (req, res) {
             res.status(404).json({
                 msg: "Error ruta no encontrada",
             });

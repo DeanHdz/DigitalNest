@@ -5,7 +5,6 @@ const router = Router();
 
 router.get("/", getUsers);
 
-//Es una subruta de la ruta /api/users
 router.get("/:id", getUser);
 
 router.post("/", createUser);
