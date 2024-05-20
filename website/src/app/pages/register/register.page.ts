@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Modal } from 'bootstrap';
@@ -12,10 +12,9 @@ import { Modal } from 'bootstrap';
 })
 export class RegisterPage {
 
-  @ViewChild('registerModal', { static: true }) registerModal!: ElementRef;
-
   constructor(private http: HttpClient) { }
 
+  //Mensaje de modal, sirve para mostrar mensajes de error
   modalMessage: string = "";
 
   nameInput: string = "";
@@ -28,9 +27,11 @@ export class RegisterPage {
     //Si contraseñas no coinciden, muestra un modal
     if (this.passInput != this.passInputVerify) {
       this.modalMessage = "Las contraseñas no coinciden";
-      const modalElement = this.registerModal.nativeElement;
-      const modalInstance = new Modal(modalElement);
-      modalInstance.show();
+      const modalElement = document.getElementById("registerModal");
+      if (modalElement){
+        const modalInstance = new Modal(modalElement);
+        modalInstance.show();
+      }
       return;
     }
 
