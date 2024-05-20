@@ -6,7 +6,7 @@ Página enfocado a la venta de electronicos desarollado con un stack MEAN: <br>
 -Node.js <br>
 
 <p align="center">
-  <img src="\src\assets\images\DigitalNest-logo.jpg" style="width: 25%;" />
+  <img src="\website\src\assets\images\DigitalNest-logo.jpg" style="width: 25%;" />
 </p>
 
 <p align="center">
