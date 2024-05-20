@@ -9,7 +9,7 @@ router.get("/", [validateJWT, verifyAdminRole], getCarts);
 
 router.get("/:id", [validateJWT], getCart);
 
-router.get("/:userId", [validateJWT], getCartByUserId);
+router.get("/user/:userId", [validateJWT], getCartByUserId);
 
 router.post("/", [validateJWT], createCart);
 

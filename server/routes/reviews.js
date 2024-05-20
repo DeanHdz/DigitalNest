@@ -8,7 +8,7 @@ router.get("/", getReviews);
 
 router.get("/:id", getReview);
 
-router.get("/:productId", getReviewsByProductId);
+router.get("/product/:productId", getReviewsByProductId);
 
 router.post("/", [validateJWT], createReview);
 

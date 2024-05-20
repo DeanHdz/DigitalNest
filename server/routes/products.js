@@ -9,7 +9,7 @@ router.get("/", getProducts);
 
 router.get("/:id", getProduct);
 
-router.get("/:category", getProductsByCategory);
+router.get("/category/:category", getProductsByCategory);
 
 router.post("/", [validateJWT, verifyAdminRole], createProduct);
 

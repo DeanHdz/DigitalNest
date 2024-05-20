@@ -9,7 +9,7 @@ router.get("/", [validateJWT, verifyAdminRole], getOrders);
 
 router.get("/:id", [validateJWT], getOrder);
 
-router.get("/:userId", [validateJWT], getOrdersByUserId);
+router.get("/user/:userId", [validateJWT], getOrdersByUserId);
 
 router.post("/", [validateJWT], createOrder);
 
