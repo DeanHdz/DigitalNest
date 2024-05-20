@@ -1,27 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
-*{
+
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
+
+    /* Para algun imagen de fondo
+        background-image: url('https://www.transparenttextures.com/patterns/axiom-pattern.png');
+        background-repeat: repeat;
+        background-position: center;
+        background-size: contain;
+    */
 }
 
-.primary{
+/* Color pallet viejo */
+
+.primary {
     background-color: #271731;
 }
 
-.primary-accent{
+.primary-accent {
     background-color: #A972FC;
 }
 
-.secondary{
+.secondary {
     background-color: #B5FF96;
 }
 
-.tertiary{
+.tertiary {
     background-color: #70CAFB;
+}
+
+/* Color pallet */
+.bg-pri {
+    background-color: #B60D14;
+}
+
+.bg-pri-l {
+    background-color: #D60000
+}
+
+.bg-pri-d {
+    background-color: #871414;
+}
+
+.border-pri {
+    border: 3px solid;
+    border-color: #B60D14;
+}
+
+.border-pri-d {
+    border: 3px solid;
+    border-color: #871414;
+}
+
+.border-pri-l {
+    border: 3px solid;
+    border-color: #D60000;
+}
+
+.bg-sec {
+    background-color: #CFB111;
+}
+
+.border-sec {
+    border: 3px solid;
+    border-color: #CFB111;
 }
