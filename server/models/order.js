@@ -23,6 +23,10 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Total price is required']
     },
+    shippingAddress: {
+        type: String,
+        required: [true, 'Shipping address is required']
+    },
     status: {
         type: String,
         required: [true, 'Status is required']

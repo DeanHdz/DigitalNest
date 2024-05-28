@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Modal } from 'bootstrap';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [FormsModule],
   templateUrl: './register.page.html',
-  styleUrl: './register.page.css'
+  styleUrls: ['./register.page.css']
 })
 export class RegisterPage {
 
-  constructor(private http: HttpClient) { }
+  constructor(private authService: AuthService) { }
 
-  //Mensaje de modal, sirve para mostrar mensajes de error
+  // Mensaje de modal, sirve para mostrar mensajes de error
   modalMessage: string = "";
 
   nameInput: string = "";
@@ -24,29 +24,40 @@ export class RegisterPage {
 
   public onRegister(): void {
 
-    //Si contraseñas no coinciden, muestra un modal
-    if (this.passInput != this.passInputVerify) {
-      this.modalMessage = "Las contraseñas no coinciden";
-      const modalElement = document.getElementById("registerModal");
-      if (modalElement){
-        const modalInstance = new Modal(modalElement);
-        modalInstance.show();
-      }
+    // Si algún campo está vacío, muestra un modal
+    if (this.nameInput === "" || this.emailInput === "" || this.passInput === "" || this.passInputVerify === "") {
+      this.modalMessage = "Por favor, rellene todos los campos";
+      this.showModal();
       return;
     }
 
-    this.http.post("http://localhost:8080/api/auth/register", {
-      "username": this.nameInput,
-      "email": this.emailInput,
-      "password": this.passInput
-    }).subscribe({ 
-      next: (response : any) => {
+    // Si las contraseñas no coinciden, muestra un modal
+    if (this.passInput !== this.passInputVerify) {
+      this.modalMessage = "Las contraseñas no coinciden";
+      this.showModal();
+      return;
+    }
+
+    // Llamar al servicio de registro
+    this.authService.register(this.nameInput, this.emailInput, this.passInput).subscribe({
+      next: (response) => {
         console.log(response);
+        // Redirigir a la página de login
+        window.location.href = "/login";
       },
-      error: (error : any) => {
-        console.log(error);
+      error: (error) => {
+        console.error(error);
+        this.modalMessage = "Hubo un error al registrar el usuario";
+        this.showModal();
       }
     });
   }
 
+  private showModal(): void {
+    const modalElement = document.getElementById("registerModal");
+    if (modalElement) {
+      const modalInstance = new Modal(modalElement);
+      modalInstance.show();
+    }
+  }
 }

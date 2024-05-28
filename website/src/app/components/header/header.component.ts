@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +10,13 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  constructor(private authService: AuthService) { }
+
+  
+
   public onLogout(): void {
-    localStorage.removeItem("auth_token");
+    this.authService.logout();
+    window.location.href = "/login";
   }
 
 }

@@ -1,18 +1,32 @@
-<div class="form">
-    <div class="container">
-        <label><b>Nombre de usuario: </b></label>
-        <input type="email" placeholder="Ingresa tu correo" [(ngModel)]="nameInput">
-        
-        <label><b>Correo: </b></label>
-        <input type="email" placeholder="Ingresa tu correo" [(ngModel)]="emailInput">
+<h1 class="text-center my-4">Registro de usuario</h1>
 
-        <label><b>Contraseña: </b></label>
-        <input type="password" placeholder="Enter Password" [(ngModel)]="passInput">
-
-        <label><b>Verificar contraseña: </b></label>
-        <input type="password" placeholder="Enter Password" [(ngModel)]="passInputVerify">
-
-        <button type="button" (click)="onRegister()">Registrarse</button>
+<div class="container mt-4 mb-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form>
+                <div class="mb-3">
+                    <label for="nameInput" class="form-label"><b>Nombre:</b></label>
+                    <input type="name" class="form-control" id="nameInput" placeholder="Ingresa tu nombre"
+                        [(ngModel)]="nameInput" name="nameInput">
+                </div>
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label"><b>Correo:</b></label>
+                    <input type="email" class="form-control" id="emailInput" placeholder="Ingresa tu correo"
+                        [(ngModel)]="emailInput" name="emailInput">
+                </div>
+                <div class="mb-3">
+                    <label for="passInput" class="form-label"><b>Contraseña:</b></label>
+                    <input type="password" class="form-control" id="passInput" placeholder="Ingresa tu contraseña"
+                        [(ngModel)]="passInput" name="passInput">
+                </div>
+                <div class="mb-3">
+                    <label for="passInputVerify" class="form-label"><b>Confirmar contraseña:</b></label>
+                    <input type="password" class="form-control" id="passInputVerify" placeholder="Ingresa tu contraseña nuevamente"
+                        [(ngModel)]="passInputVerify" name="passInputVerify">
+                </div>
+                <button type="button" class="btn btn-primary w-100" (click)="onRegister()">Registrarse</button>
+            </form>
+        </div>
     </div>
 </div>
 

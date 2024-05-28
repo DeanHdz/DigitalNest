@@ -1,24 +1,22 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <ul class="nav navbar-nav align-items-center">
       <a class="navbar-brand" href="/home">
         <img src="../../../assets/images/DigitalNest-logo-removebg-cropped.png" alt="DigitalNest" id="headerLogo">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link text-white" href="/home">Inicio</a>
-          </li>
-        </ul>
-        <div class="ms-auto">
-          <a class="nav-link text-white m-4" href="/login">Iniciar Sesión</a>
-          <a class="nav-link text-white m-4" href="/register">Registrarse</a>
-        </div>
-      </div>
+      <li class="nav-item">
+        <a class="nav-link text-white fw-medium" href="/home">Inicio</a>
+      </li>
+    </ul>
+    <!-- Mostrar si no hay auth_token -->
+    <div class="ms-auto">
+      <a class="nav-link text-white m-4" href="/login">Iniciar Sesión</a>
+      <a class="nav-link text-white m-4" href="/register">Registrarse</a>
+    </div>
+    <!-- Mostrar si hay auth_token -->
+    <div class="ms-auto">
+      <a class="nav-link text-white m-4" href="/history">Historial de Perfil</a>
+      <a class="nav-link text-white m-4" href="/logout">Cerrar Sesión</a>
     </div>
   </nav>
 </header>

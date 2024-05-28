@@ -53,8 +53,8 @@ const getOrder = (req = request, res = response) => {
 }
 
 const createOrder = (req = request, res = response) => {
-    const { userId, products } = req.body;
-    const order = new Order({ userId: userId, products: products });
+    const { userId, products, totalPrice, shippingAddress, status } = req.body;
+    const order = new Order({ userId: userId, products: products, totalPrice: totalPrice, shippingAddress: shippingAddress, status: status});
     order.save().then(
         (order) => {
             res.status(201).json({
@@ -72,8 +72,8 @@ const createOrder = (req = request, res = response) => {
 
 const updateOrder = (req = request, res = response) => {
     const id = req.params.id;
-    const { userId, products } = req.body
-    Order.findByIdAndUpdate(id, { userId: userId, products: products }).then(
+    const { userId, products, totalPrice, shippingAddress, status } = req.body;
+    Order.findByIdAndUpdate(id, { userId: userId, products: products, totalPrice: totalPrice, shippingAddress: shippingAddress, status: status }).then(
         () => {
             res.status(200).json({
                 msg: "Order updated"

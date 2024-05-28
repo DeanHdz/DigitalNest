@@ -1,11 +1,39 @@
-<div class="form">
-    <div class="container">
-        <label><b>Correo: </b></label>
-        <input type="email" placeholder="Ingresa tu correo" [(ngModel)]="emailInput">
+<h1 class="text-center my-4">Inicio de Sesión</h1>
 
-        <label><b>Contraseña: </b></label>
-        <input type="password" placeholder="Enter Password" [(ngModel)]="passInput">
+<div class="container mt-4 mb-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form>
+                <div class="mb-3">
+                    <label for="email" class="form-label"><b>Correo:</b></label>
+                    <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo"
+                        [(ngModel)]="emailInput" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label"><b>Contraseña:</b></label>
+                    <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña"
+                        [(ngModel)]="passInput" name="password">
+                </div>
+                <button type="button" class="btn btn-primary w-100" (click)="onLogin()">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-        <button type="button" (click)="onLogin()">Iniciar Sesión</button>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Inicio de Sesión</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>{{modalMessage}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -31,4 +31,21 @@ export class CartService {
     });
   }
 
+  public addProductToCart(userId: string, productId: string): void {
+    const token = localStorage.getItem('auth_token') ?? "";
+    this.http.post(`http://localhost:8080/api/carts/user/${userId}/product/${productId}`, {}, {
+      headers: {
+        "Authorization": token
+      }
+    }).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.cart = response.cart;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
+
 }

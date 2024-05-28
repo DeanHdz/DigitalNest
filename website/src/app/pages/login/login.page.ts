@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Modal } from 'bootstrap';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,25 +12,43 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginPage {
 
-  constructor(private http: HttpClient) { }
+  constructor(private authService: AuthService) { }
+
+  // Mensaje de modal, sirve para mostrar mensajes de error
+  modalMessage: string = "";
 
   emailInput: string = "";
   passInput: string = "";
 
+  //Lamar al servicio de login
   public onLogin(): void {
-    this.http.post("http://localhost:8080/api/auth/login", {
-      "email": this.emailInput,
-      "password": this.passInput
-    }).subscribe({ 
-      next: (response : any) => {
+
+    if(this.emailInput === "" || this.passInput === "") {
+      this.modalMessage = "Por favor, rellene todos los campos";
+      this.showModal();
+      return;
+    }
+
+    this.authService.login(this.emailInput, this.passInput).subscribe({
+      next: (response) => {
         console.log(response);
-        localStorage.setItem("auth_token", response.token);
-        //Set in local storage a user json, containing the user id, user name and email
-        //localStorage.setItem("user", JSON.stringify(response.user));
+        this.authService.setToken(response.token);
+        // Redirigir a la página de inicio si es cliente, o a la página de administrador si es admin
+        window.location.href = "/home";
       },
-      error: (error : any) => {
-        console.log(error);
+      error: (error) => {
+        console.error(error);
+        this.modalMessage = "Hubo un error al iniciar sesión";
+        this.showModal();
       }
     });
+  }
+
+  private showModal(): void {
+    const modalElement = document.getElementById("loginModal");
+    if (modalElement) {
+      const modalInstance = new Modal(modalElement);
+      modalInstance.show();
+    }
   }
 }

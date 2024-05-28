@@ -9,5 +9,6 @@ export interface Order {
     userId: any; // Types.ObjectId
     products: OrderProduct[];
     totalPrice: number;
+    shippingAddress: string;
     status: string;
 }

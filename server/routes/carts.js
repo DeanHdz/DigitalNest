@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getCarts, getCart, getCartByUserId, createCart, updateCart, deleteCart } = require('../controllers/carts');
+const { getCarts, getCart, getCartByUserId, createCart, addProductToCart, updateCart, deleteCart } = require('../controllers/carts');
 const { validateJWT } = require('../middlewares/verifyJWT');
 const { verifyAdminRole } = require('../middlewares/verifyAdminRole');
 
@@ -12,6 +12,8 @@ router.get("/:id", [validateJWT], getCart);
 router.get("/user/:userId", [validateJWT], getCartByUserId);
 
 router.post("/", [validateJWT], createCart);
+
+router.post("/user/:userId/product/:productId", [validateJWT], addProductToCart);
 
 router.put("/:id", [validateJWT], updateCart);
 
