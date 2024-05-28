@@ -8,15 +8,15 @@
         <a class="nav-link text-white fw-medium" href="/home">Inicio</a>
       </li>
     </ul>
-    <!-- Mostrar si no hay auth_token -->
     <div class="ms-auto">
-      <a class="nav-link text-white m-4" href="/login">Iniciar Sesión</a>
-      <a class="nav-link text-white m-4" href="/register">Registrarse</a>
-    </div>
-    <!-- Mostrar si hay auth_token -->
-    <div class="ms-auto">
-      <a class="nav-link text-white m-4" href="/history">Historial de Perfil</a>
-      <a class="nav-link text-white m-4" href="/logout">Cerrar Sesión</a>
+      <ng-container *ngIf="!isLoggedIn">
+        <a class="nav-link text-white m-4" href="/login">Iniciar Sesión</a>
+        <a class="nav-link text-white m-4" href="/register">Registrarse</a>
+      </ng-container>
+      <ng-container *ngIf="isLoggedIn">
+        <a class="nav-link text-white m-4" href="/history">Historial de Perfil</a>
+        <a class="nav-link text-white m-4" (click)="onLogout()">Cerrar Sesión</a>
+      </ng-container>
     </div>
   </nav>
 </header>

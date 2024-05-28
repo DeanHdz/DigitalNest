@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs'; //Implementar Observable para que login y register page pueda subscribirse a los eventos y mostrar en el console.log el response
+import { Observable, BehaviorSubject } from 'rxjs'; 
+//Implementar Observable para que login y register page pueda subscribirse a los eventos y mostrar en el console.log el response
+//Implementar BehaviorSubject para que header component pueda estar al tanto de la autenticación del usuario
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private tokenKey = 'auth_token'; //Variable para guardar el token en el localStorage
+  private loggedIn = new BehaviorSubject<boolean>(this.hasToken()); //Variable para guardar el estado del usuario
 
   constructor(private http: HttpClient) {}
 
@@ -27,10 +30,11 @@ export class AuthService {
 
   logout(): void {
     this.removeToken();
+    this.loggedIn.next(false);
   }
 
-  isLoggedIn(): boolean {
-    return this.hasToken();
+  isLoggedIn(): Observable<boolean> {
+    return this.loggedIn.asObservable();
   }
 
   setToken(token: string): void {
