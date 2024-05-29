@@ -52,7 +52,7 @@ const createCategory = (req = request, res = response) => {
     );
 }
 
-const updateCategory = (req = request, res = response) => {
+const updateCategoryName = (req = request, res = response) => {
     const id = req.params.id;
     const { name } = req.body
     Category.findByIdAndUpdate(id, {
@@ -71,6 +71,45 @@ const updateCategory = (req = request, res = response) => {
         }
     );
 }
+
+const insertProductIntoCategory = (req = request, res = response) => {
+    const id = req.params.id;
+    const { productId } = req.body;
+
+    Category.findByIdAndUpdate(
+        id,
+        { $addToSet: { products: productId } },  // Cambiado de $push a $addToSet para evitar repetidos
+        { new: true }
+    ).then(() => {
+        res.status(200).json({
+            msg: "Product inserted into category"
+        });
+    }).catch((error) => {
+        res.status(400).json({
+            msg: "Product not inserted into category: " + error
+        });
+    });
+}
+
+const removeProductFromCategory = (req = request, res = response) => {
+    const id = req.params.id;
+    const { productId } = req.body;
+
+    Category.findByIdAndUpdate(
+        id,
+        { $pull: { products: productId } },
+        { new: true }
+    ).then(() => {
+        res.status(200).json({
+            msg: "Product removed from category"
+        });
+    }).catch((error) => {
+        res.status(400).json({
+            msg: "Product not removed from category: " + error
+        });
+    });
+}
+
 
 const deleteCategory = (req = request, res = response) => {
     const id = req.params.id;
@@ -93,6 +132,8 @@ module.exports = {
     getCategories,
     getCategory,
     createCategory,
-    updateCategory,
+    updateCategoryName,
+    insertProductIntoCategory,
+    removeProductFromCategory,
     deleteCategory
 }

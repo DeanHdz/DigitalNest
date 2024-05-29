@@ -29,7 +29,7 @@ export class AdminPage implements OnInit {
 
   //Remocion de producto de categoria
   productToRemove: string = '';
-  categoryToRemoveProduct: string = '';
+  categoryToRemoveProduct: Category = { _id: '', name: '', products: [] };
 
   //Baja de categoria
   categoryToDelete: string = '';
@@ -127,10 +127,10 @@ export class AdminPage implements OnInit {
   }
 
   onSubmitRemoveProductFromCategory(){
-    this.adminService.removeProductFromCategory(this.categoryToRemoveProduct, this.productToRemove).subscribe({
+    this.adminService.removeProductFromCategory(this.categoryToRemoveProduct._id, this.productToRemove).subscribe({
       next: (response: any) => {
         console.log(response);
-        window.location.href = "/admin";
+        //window.location.href = "/admin";
       },
       error: (error: any) => {
         console.log(error);

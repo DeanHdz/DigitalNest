@@ -81,7 +81,7 @@
                             <label for="category" class="form-label"><b>Categoria:</b></label>
                             <select class="form-select" id="category" [(ngModel)]="categoryToRemoveProduct"
                                 name="category">
-                                <option *ngFor="let category of categories" [value]="category._id">{{category.name}}
+                                <option *ngFor="let category of categories" [value]="category">{{category.name}}
                                 </option>
                             </select>
                         </div>
@@ -135,11 +135,11 @@
                                 placeholder="Descripción del producto" [(ngModel)]="productDescriptionInput"
                                 name="description">
                             <label for="productPrice" class="form-label"><b>Precio:</b></label>
-                            <input type="number" class="form-control" id="productPrice" placeholder="Precio del producto"
-                                [(ngModel)]="productPriceInput" name="price">
+                            <input type="number" class="form-control" id="productPrice"
+                                placeholder="Precio del producto" [(ngModel)]="productPriceInput" name="price">
                             <label for="productImg" class="form-label"><b>URL de imagen:</b></label>
-                            <input type="url" class="form-control" id="productImg" placeholder="URL del imagen del producto"
-                                [(ngModel)]="productImgInput" name="img">
+                            <input type="url" class="form-control" id="productImg"
+                                placeholder="URL del imagen del producto" [(ngModel)]="productImgInput" name="img">
                             <label for="productQuantity" class="form-label"><b>Cantidad:</b></label>
                             <input type="number" class="form-control" id="productQuantity"
                                 placeholder="Cantidad del producto" [(ngModel)]="productStockQuantityInput"
@@ -178,7 +178,8 @@
                             <label for="newProductImg" class="form-label
                             "><b>URL de imagen:</b></label>
                             <input type="url" class="form-control" id="newProductImg"
-                                placeholder="URL del nuevo imagen del producto" [(ngModel)]="newProductImgInput" name="img">
+                                placeholder="URL del nuevo imagen del producto" [(ngModel)]="newProductImgInput"
+                                name="img">
                             <label for="newProductQuantity" class="form-label
                             "><b>Cantidad:</b></label>
                             <input type="number" class="form-control" id="newProductQuantity"

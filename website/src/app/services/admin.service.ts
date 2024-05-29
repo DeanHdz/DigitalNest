@@ -52,10 +52,10 @@ export class AdminService {
     });
   }
 
-  insertProductIntoCategory(_id: string, product_id: string): Observable<any> {
+  insertProductIntoCategory(_id: string, productId: string): Observable<any> {
     const token = localStorage.getItem(this.tokenKey) ?? "";
     return this.http.put(`http://localhost:8080/api/categories/${_id}/products`, {
-      "product_id": product_id
+      "productId": productId
     }, {
       headers: {
         "Authorization": token
@@ -63,9 +63,9 @@ export class AdminService {
     });
   }
 
-  removeProductFromCategory(_id: string, product_id: string): Observable<any> {
+  removeProductFromCategory(_id: string, productId: string): Observable<any> {
     const token = localStorage.getItem(this.tokenKey) ?? "";
-    return this.http.delete(`http://localhost:8080/api/categories/${_id}/products/${product_id}`, {
+    return this.http.delete(`http://localhost:8080/api/categories/${_id}/products/${productId}`, {
       headers: {
         "Authorization": token
       }
