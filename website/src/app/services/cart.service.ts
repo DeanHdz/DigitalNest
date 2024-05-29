@@ -49,4 +49,21 @@ export class CartService {
     });
   }
 
+  public removeProductFromCart(userId: string, productId: string): void {
+    const token = localStorage.getItem('auth_token') ?? "";
+    this.http.delete(`http://localhost:8080/api/carts/user/${userId}/product/${productId}`, {
+      headers: {
+        "Authorization": token
+      }
+    }).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.cart = response.cart;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
+
 }

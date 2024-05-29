@@ -130,7 +130,7 @@ export class AdminPage implements OnInit {
     this.adminService.removeProductFromCategory(this.categoryToRemoveProduct._id, this.productToRemove).subscribe({
       next: (response: any) => {
         console.log(response);
-        //window.location.href = "/admin";
+        window.location.href = "/admin";
       },
       error: (error: any) => {
         console.log(error);
