@@ -15,8 +15,6 @@ const validateJWT = (req = request, res = response, next) => {
 
     try {
         const { _id } = jwt.verify(token, process.env.SECRET_KEY);
-        //const r = jwt.verify(token, process.env.SECRET_KEY);
-        //console.log("r -> result: " + r.id + " " + r.username + " " + r.email + " " + r.role); //Ver como se reciben los atributos del usuario en el token
         User.findOne({ _id: _id }).then(
             (result) => {
                 if (result) {

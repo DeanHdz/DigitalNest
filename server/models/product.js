@@ -14,8 +14,8 @@ const productSchema = new mongoose.Schema({
         required: [true, 'Price is required']
     },
     img: {
-        type: String,
-        required: [true, 'Image is required']
+        type: File,
+        required: [false]
     },
     stockQuantity: {
         type: Number,

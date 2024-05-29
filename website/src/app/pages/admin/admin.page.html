@@ -21,10 +21,12 @@
 
         <h3 class="text-center">Modificacion de categorias</h3>
 
+        <h5 class="text-center">Cambiar nombre de categoria</h5>
+
         <div class="container mt-4 mb-4">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form (ngSubmit)="onSubmitUpdateCategory()">
+                    <form (ngSubmit)="onSubmitUpdateCategoryName()">
                         <div class="mb-3">
                             <label for="category" class="form-label"><b>Categoria:</b></label>
                             <select class="form-select" id="category" [(ngModel)]="categoryToUpdate" name="id">
@@ -38,6 +40,58 @@
                                 placeholder="Nuevo nombre de la categoria" [(ngModel)]="newCategoryInput" name="name">
                         </div>
                         <button type="submit" class="btn btn-warning w-100">Modificar categoria</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="text-center">Insertar producto en categoria</h5>
+
+        <div class="container mt-4 mb-4">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form (ngSubmit)="onSubmitInsertProductIntoCategory()">
+                        <div class="mb-3">
+                            <label for="category" class="form-label"><b>Categoria:</b></label>
+                            <select class="form-select" id="category" [(ngModel)]="categoryToInsertProduct"
+                                name="category">
+                                <option *ngFor="let category of categories" [value]="category._id">{{category.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="product" class="form-label"><b>Producto:</b></label>
+                            <select class="form-select" id="product" [(ngModel)]="productToInsert" name="product">
+                                <option *ngFor="let product of products" [value]="product._id">{{product.name}}</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Insertar producto en categoria</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="text-center">Remover producto de categoria</h5>
+
+        <div class="container mt-4 mb-4">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form (ngSubmit)="onSubmitRemoveProductFromCategory()">
+                        <div class="mb-3">
+                            <label for="category" class="form-label"><b>Categoria:</b></label>
+                            <select class="form-select" id="category" [(ngModel)]="categoryToRemoveProduct"
+                                name="category">
+                                <option *ngFor="let category of categories" [value]="category._id">{{category.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="product" class="form-label"><b>Producto:</b></label>
+                            <select class="form-select" id="product" [(ngModel)]="productToRemove" name="product">
+                                <option *ngFor="let product of products" [value]="product._id">{{product.name}}</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-danger w-100">Remover producto de categoria</button>
                     </form>
                 </div>
             </div>
@@ -138,14 +192,6 @@
                             <input type="number" class="form-control" id="newProductQuantity"
                                 placeholder="Nueva cantidad del producto" [(ngModel)]="newProductPriceInput"
                                 name="stockQuantity">
-                        </div>
-                        <div class="mb-3">
-                            <label for="category" class="form-label"><b>Categoria:</b></label>
-                            <select class="form-select" id="category" [(ngModel)]="categoryToInsertProduct"
-                                name="category">
-                                <option *ngFor="let category of categories" [value]="category._id">{{category.name}}
-                                </option>
-                            </select>
                         </div>
                         <button type="submit" class="btn btn-warning w-100">Modificar producto</button>
                     </form>

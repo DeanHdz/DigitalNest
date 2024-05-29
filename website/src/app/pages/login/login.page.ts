@@ -23,7 +23,7 @@ export class LoginPage {
   //Lamar al servicio de login
   public onLogin(): void {
 
-    if(this.emailInput === "" || this.passInput === "") {
+    if (this.emailInput === "" || this.passInput === "") {
       this.modalMessage = "Por favor, rellene todos los campos";
       this.showModal();
       return;
@@ -33,8 +33,12 @@ export class LoginPage {
       next: (response) => {
         console.log(response);
         this.authService.setToken(response.token);
-        // Redirigir a la página de inicio si es cliente, o a la página de administrador si es admin
-        window.location.href = "/home";
+        /*if (response.token.role === "admin") {
+          window.location.href = "/admin";
+        }
+        else {
+          window.location.href = "/home";
+        }*/
       },
       error: (error) => {
         console.error(error);

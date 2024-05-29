@@ -17,10 +17,11 @@ const getProducts = (req = request, res = response) => {
     );
 }
 
+//Falta arreglar
 const getProductsByCategory = (req = request, res = response) => {
-    const category = req.params.category;
+    const categoryId = req.params.categoryId;
     Product.find({
-        category: category
+        _Id: categoryId
     }).then(
         (products) => {
             res.status(200).json({
@@ -54,10 +55,10 @@ const getProduct = (req = request, res = response) => {
 }
 
 const createProduct = (req = request, res = response) => {
-    const { name, description, price, img, stockQuantity, categoryId } = req.body;
-    const product = new Product({ name: name, description: description, price: price, img: img, stockQuantity: stockQuantity, categoryId: categoryId });
+    const { name, description, price, img, stockQuantity } = req.body;
+    const product = new Product({ name: name, description: description, price: price, img: img, stockQuantity: stockQuantity });
     product.save().then(
-        (product) => {
+        () => {
             res.status(201).json({
                 msg: "Product created"
             });
@@ -73,11 +74,13 @@ const createProduct = (req = request, res = response) => {
 
 const updateProduct = (req = request, res = response) => {
     const id = req.params.id;
-    const { name, price, category } = req.body;
+    const { name, description, price, img, stockQuantity } = req.body;
     Product.findByIdAndUpdate(id, {
         name: name,
+        description: description,
         price: price,
-        category: category
+        ima: img,
+        stockQuantity: stockQuantity
     }).then(
         () => {
             res.status(200).json({
