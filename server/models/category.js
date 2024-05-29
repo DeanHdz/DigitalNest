@@ -5,10 +5,6 @@ const categorySchema = new mongoose.Schema({
         type: String,
         required: [true, 'Name is required']
     },
-    img: {
-        type: String,
-        required: [true, 'Image is required']
-    },
     products: [
         {
             type: mongoose.Schema.Types.ObjectId,

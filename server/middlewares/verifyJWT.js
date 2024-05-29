@@ -8,21 +8,23 @@ const validateJWT = (req = request, res = response, next) => {
 
     if (!token) {
         res.status(401).json({
-            msg: "Token invalido"
+            msg: "Token no encontrado"
         });
         return;
     }
 
     try {
-        const { id } = jwt.verify(token, process.env.SECRET_KEY);
-        User.findOne({ user: id }).then(
+        const { _id } = jwt.verify(token, process.env.SECRET_KEY);
+        //const r = jwt.verify(token, process.env.SECRET_KEY);
+        //console.log("r -> result: " + r.id + " " + r.username + " " + r.email + " " + r.role); //Ver como se reciben los atributos del usuario en el token
+        User.findOne({ _id: _id }).then(
             (result) => {
                 if (result) {
                     req.userActive = result;
                     next();
                 } else {
                     res.status(401).json({
-                        msg: "Token invalido"
+                        msg: "Token invalido (Usuario no encontrado)"
                     });
                     return;
                 }
@@ -34,7 +36,7 @@ const validateJWT = (req = request, res = response, next) => {
             });
     } catch (error) {
         res.status(401).json({
-            msg: "Token invalido"
+            msg: "Token invalido (Error en la verificacion)"
         });
         return;
     }

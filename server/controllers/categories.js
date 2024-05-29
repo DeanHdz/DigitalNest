@@ -36,7 +36,7 @@ const getCategory = (req = request, res = response) => {
 
 const createCategory = (req = request, res = response) => {
     const { name } = req.body;
-    const category = new Category({ name });
+    const category = new Category({ name: name });
     category.save().then(
         (category) => {
             res.status(201).json({

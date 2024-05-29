@@ -6,6 +6,7 @@ export interface OrderProduct {
 }
 
 export interface Order {
+    _id: string;
     userId: any; // Types.ObjectId
     products: OrderProduct[];
     totalPrice: number;

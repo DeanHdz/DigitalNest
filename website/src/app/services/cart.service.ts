@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class CartService {
 
   public cart: Cart = {
+    _id: "",
     userId: "",
     products: []
   };

@@ -54,8 +54,8 @@ const getProduct = (req = request, res = response) => {
 }
 
 const createProduct = (req = request, res = response) => {
-    const { name, price, category } = req.body;
-    const product = new Product({ name, price, category });
+    const { name, description, price, img, stockQuantity, categoryId } = req.body;
+    const product = new Product({ name: name, description: description, price: price, img: img, stockQuantity: stockQuantity, categoryId: categoryId });
     product.save().then(
         (product) => {
             res.status(201).json({

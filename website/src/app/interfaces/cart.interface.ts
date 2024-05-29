@@ -6,6 +6,7 @@ export interface CartProduct {
 }
 
 export interface Cart {
+    _id: string;
     userId: any; //ObjectId de mongoDB -> Types.ObjectId
     products: CartProduct[];
 }

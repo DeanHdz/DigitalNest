@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { CartService } from '../../services/cart.service';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -12,6 +13,7 @@ import { NgIf } from '@angular/common';
 export class HeaderComponent implements OnInit {
 
   isLoggedIn: boolean = false;
+  cartItems: number = 0;
 
   constructor(private authService: AuthService) { }
 
