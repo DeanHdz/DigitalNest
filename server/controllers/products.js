@@ -79,7 +79,7 @@ const updateProduct = (req = request, res = response) => {
         name: name,
         description: description,
         price: price,
-        ima: img,
+        img: img,
         stockQuantity: stockQuantity
     }).then(
         () => {

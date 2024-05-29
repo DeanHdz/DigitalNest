@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { Category } from '../interfaces/category.interface';
+import { Product } from '../interfaces/product.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -79,7 +81,7 @@ export class AdminService {
     });
   }
 
-  createProduct(name: string, description: string, price: number, img: File, stockQuantity: number): Observable<any> {
+  createProduct(name: string, description: string, price: number, img: string, stockQuantity: number): Observable<any> {
     const token = localStorage.getItem(this.tokenKey) ?? "";
     return this.http.post("http://localhost:8080/api/products", {
       "name": name,
@@ -94,7 +96,7 @@ export class AdminService {
     });
   }
 
-  updateProduct(_id: string, name: string, description: string, price: number, img: File, stockQuantity: number): Observable<any> {
+  updateProduct(_id: string, name: string, description: string, price: number, img: string, stockQuantity: number): Observable<any> {
     const token = localStorage.getItem(this.tokenKey) ?? "";
     return this.http.put(`http://localhost:8080/api/products/${_id}`, {
       "name": name,

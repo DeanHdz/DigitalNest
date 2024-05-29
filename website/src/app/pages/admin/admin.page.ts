@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -14,7 +14,7 @@ import { Product } from '../../interfaces/product.interface';
   templateUrl: './admin.page.html',
   styleUrl: './admin.page.css'
 })
-export class AdminPage {
+export class AdminPage implements OnInit {
 
   //Alta de categoria
   categoryInput: string = '';
@@ -38,7 +38,7 @@ export class AdminPage {
   productNameInput: string = '';
   productDescriptionInput: string = '';
   productPriceInput: number = 0;
-  productImgInput: File = new File([], '');
+  productImgInput: string = 'https://picsum.photos/200';
   productStockQuantityInput: number = 0;
 
   //Modificacion de producto
@@ -46,7 +46,7 @@ export class AdminPage {
   newProductNameInput: string = '';
   newProductDescriptionInput: string = '';
   newProductPriceInput: number = 0;
-  newProductImgInput: File = new File([], '');
+  newProductImgInput: string = 'https://picsum.photos/200';
   newProductStockQuantityInput: number = 0;
 
   //Baja de producto
@@ -61,7 +61,8 @@ export class AdminPage {
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
-    
+    this.fetchCategories();
+    this.fetchProducts();
   }
 
   fetchCategories() {
@@ -78,10 +79,22 @@ export class AdminPage {
     });
   }
 
+  fetchProducts() {
+    this.adminService.fetchProducts().subscribe({
+      next: (response: any) => {
+        this.products = response.products;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
+
   onSubmitCreateCategory() {
     this.adminService.createCategory(this.categoryInput).subscribe({
       next: (response: any) => {
         console.log(response);
+        window.location.href = "/admin";
       },
       error: (error: any) => {
         console.log(error);
@@ -93,6 +106,7 @@ export class AdminPage {
     this.adminService.updateCategoryName(this.categoryToUpdate, this.newCategoryInput).subscribe({
       next: (response: any) => {
         console.log(response);
+        window.location.href = "/admin";
       },
       error: (error: any) => {
         console.log(error);
@@ -104,6 +118,7 @@ export class AdminPage {
     this.adminService.insertProductIntoCategory(this.categoryToInsertProduct, this.productToInsert).subscribe({
       next: (response: any) => {
         console.log(response);
+        window.location.href = "/admin";
       },
       error: (error: any) => {
         console.log(error);
@@ -115,6 +130,7 @@ export class AdminPage {
     this.adminService.removeProductFromCategory(this.categoryToRemoveProduct, this.productToRemove).subscribe({
       next: (response: any) => {
         console.log(response);
+        window.location.href = "/admin";
       },
       error: (error: any) => {
         console.log(error);
@@ -126,6 +142,7 @@ export class AdminPage {
     this.adminService.deleteCategory(this.categoryToDelete).subscribe({
       next: (response: any) => {
         console.log(response);
+        window.location.href = "/admin";
       },
       error: (error: any) => {
         console.log(error);
@@ -137,6 +154,7 @@ export class AdminPage {
     this.adminService.createProduct(this.productNameInput, this.productDescriptionInput, this.productPriceInput, this.productImgInput, this.productStockQuantityInput).subscribe({
       next: (response: any) => {
         console.log(response);
+        window.location.href = "/admin";
       },
       error: (error: any) => {
         console.log(error);
@@ -148,6 +166,7 @@ export class AdminPage {
     this.adminService.updateProduct(this.productToUpdate, this.newProductNameInput, this.newProductDescriptionInput, this.newProductPriceInput, this.newProductImgInput, this.newProductStockQuantityInput).subscribe({
       next: (response: any) => {
         console.log(response);
+        window.location.href = "/admin";
       },
       error: (error: any) => {
         console.log(error);
@@ -156,10 +175,10 @@ export class AdminPage {
   }
 
   onSubmitDeleteProduct() {
-    const token = localStorage.getItem("auth_token") ?? "";
     this.adminService.deleteProduct(this.productToDelete).subscribe({
       next: (response: any) => {
         console.log(response);
+        window.location.href = "/admin";
       },
       error: (error: any) => {
         console.log(error);
