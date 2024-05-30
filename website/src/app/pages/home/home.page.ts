@@ -10,6 +10,7 @@ import { CartService } from '../../services/cart.service';
 
 import * as bootstrap from 'bootstrap';
 import { Category } from '../../interfaces/category.interface';
+import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -48,12 +49,11 @@ export class HomePage implements OnInit {
     });
   }
 
-  public fetchProductReviews(productId: string): Review[] {
+  public fetchProductReviews(productId: string): void {
     this.http.get(`http://localhost:8080/api/reviews/product/${productId}`).subscribe((response: any) => {
       console.log(response);
-      return response.reviews;
+      this.selectedProductReviews = response.reviews;
     });
-    return [];
   }
 
   public fetchCategories(): void {
@@ -68,7 +68,7 @@ export class HomePage implements OnInit {
     this.selectedProduct = product; //Al rescatar el producto, se puede hacer uso de el para mostrarlo en un componente de vista de producto (Modal)
 
     //Es necesario realizar una peticion de reseñas para ver la valoracion del producto en el modal de vista de producto
-    this.selectedProductReviews = this.fetchProductReviews(product._id);
+    this.fetchProductReviews(product._id);
 
     //Mostrar modal de vista de producto
     const modalElement = document.getElementById('viewProductModal');
@@ -96,5 +96,36 @@ export class HomePage implements OnInit {
 
     //Si el usuario esta autenticado, se añade el producto al carrito
     this.cartService.addProduct(userId,product._id);
+  }
+
+  public addReview(review: {comment: String, rating: number}): void {
+    //Si no hay un token en la sesion actual, se redirige al usuario a la pagina de login
+    if (!this.authService.hasToken()) {
+      window.location.href = "/login";
+      return;
+    }
+
+    //Verificar si el usuario esta autenticado recuperando el id del usuario desde el token
+    const userId = this.authService.getUserIdFromToken();
+    if (!userId) {
+      window.location.href = "/login";
+      return;
+    }
+
+    const token = localStorage.getItem('auth_token') ?? '';
+
+    //Si el usuario esta autenticado, se añade la reseña al producto
+    this.http.post(`http://localhost:8080/api/reviews/`, {
+      productId: this.selectedProduct._id,
+      comment: review.comment,
+      rating: review.rating,
+      userId: userId
+    }, {
+      headers: {
+        'Authorization': token
+      }
+    }).subscribe((response: any) => {
+      console.log(response);
+    });
   }
 }
