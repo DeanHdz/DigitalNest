@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../interfaces/user.interface';
+import { Cart } from '../../interfaces/cart.interface';
 import { AuthService } from '../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { NgIf } from '@angular/common';
@@ -14,15 +15,19 @@ import { NgIf } from '@angular/common';
 export class HeaderComponent implements OnInit {
 
   isLoggedIn: boolean = false;
-  cartItems: number = 0;
   user: User = {
     _id: '',
     username: '',
     email: '',
     role: ''
   };
+  cart: Cart = {
+    _id: '',
+    userId: '',
+    products: []
+  };
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.authService.isLoggedIn().subscribe(
@@ -33,6 +38,13 @@ export class HeaderComponent implements OnInit {
     this.authService.getUser().subscribe(
       (user: User) => {
         this.user = user;
+      }
+    );
+    this.cartService.getCart().subscribe(
+      (cart: Cart) => {
+        console.log(cart);
+        this.cart = cart;
+        console.log(this.cart);
       }
     );
   }

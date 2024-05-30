@@ -75,26 +75,25 @@ const addProductToCart = (req = request, res = response) => {
                 // Guardamos los cambios en el carrito
                 return cart.save();
             } else {
-                // Si el carrito no existe, creamos uno nuevo y agregamos el producto
-                return Cart.create({
-                    userId,
-                    products: [{ productId, quantity }]
-                });
+                // Si el carrito no existe, retornamos un error
+                return Promise.reject(new Error('No cart found for user.'));
             }
         }).then(
             (updatedCart) => {
                 res.status(200).json({
-                    msg: "Product added to cart"
+                    msg: "Product added to cart",
+                    cart: updatedCart
                 });
                 console.log('Carrito actualizado:', updatedCart);
             }
         ).catch(
             (error) => {
                 res.status(400).json({
-                    msg: "Product not added to cart: " + error
+                    msg: "Product not added to cart: " + error.message
                 });
                 console.error('Error al actualizar el carrito:', error);
-            });
+            }
+        );
 }
 
 const updateCart = (req = request, res = response) => {
@@ -134,15 +133,39 @@ const deleteCart = (req = request, res = response) => {
 
 const getCartByUserId = (req = request, res = response) => {
     const userId = req.params.userId;
+
     Cart.findOne({ userId: userId }).then(
         (cart) => {
-            res.status(200).json({
-                cart
-            });
+            if (!cart) {
+                // Si el carrito no existe, creamos uno nuevo
+                const newCart = new Cart({ userId: userId, products: [] });
+
+                newCart.save().then(
+                    (createdCart) => {
+                        res.status(200).json({
+                            message: "No se encontró carrito, se ha creado uno nuevo.",
+                            cart: createdCart
+                        });
+                    }
+                ).catch(
+                    (error) => {
+                        res.status(500).json({
+                            message: "Error al crear el carrito",
+                            error
+                        });
+                    }
+                );
+            } else {
+                // Si el carrito existe, lo devolvemos
+                res.status(200).json({
+                    cart
+                });
+            }
         }
     ).catch(
         (error) => {
-            res.status(400).json({
+            res.status(500).json({
+                message: "Error al buscar el carrito",
                 error
             });
         }
