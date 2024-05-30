@@ -5,6 +5,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 
 //import { CategoryService } from '../../services/category.service';
 import { CartService } from '../../services/cart.service';
+import { Product } from '../../interfaces/product.interface';
 
 @Component({
   selector: 'app-category',
@@ -24,7 +25,7 @@ export class CategoryComponent {
     products: []
   };
 
-  addToCart(productId: string): void {
+  addToCart(product: Product): void {
     const token = localStorage.getItem('auth_token') ?? "";
 
     //this.cartService.addProductToCart(productId);
