@@ -2,13 +2,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../interfaces/product.interface';
 
 @Component({
-  selector: 'app-product-card',
+  selector: 'app-view-product',
   standalone: true,
   imports: [],
-  templateUrl: './product-card.component.html',
-  styleUrl: './product-card.component.css'
+  templateUrl: './view-product.component.html',
+  styleUrl: './view-product.component.css'
 })
-export class ProductCardComponent {
+export class ViewProductComponent {
+  
   @Input()
   public product: Product = {
     _id: "",
@@ -19,9 +20,9 @@ export class ProductCardComponent {
     stockQuantity: 0
   };
 
-  @Output() public viewProduct: EventEmitter<Product> = new EventEmitter<Product>();
+  @Output() public addToCart: EventEmitter<Product> = new EventEmitter<Product>();
 
-  public onViewProduct(): void {
-    this.viewProduct.emit(this.product);
+  public onAddToCart(): void {
+    this.addToCart.emit(this.product);
   }
 }
