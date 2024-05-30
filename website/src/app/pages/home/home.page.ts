@@ -3,6 +3,8 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 import { ViewProductComponent } from '../../components/view-product/view-product.component';
 import { Product } from '../../interfaces/product.interface';
 import { NgFor } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 import * as bootstrap from 'bootstrap';
 
@@ -15,32 +17,7 @@ import * as bootstrap from 'bootstrap';
 })
 export class HomePage implements OnInit {
 
-  public products: Product[] = [
-    {
-      _id: "1",
-      name: "Product 1",
-      description: "Description of product 1",
-      price: 10,
-      img: "https://picsum.photos/200",
-      stockQuantity: 10
-    },
-    {
-      _id: "2",
-      name: "Product 2",
-      description: "Description of product 2",
-      price: 20,
-      img: "https://via.placeholder.com/150",
-      stockQuantity: 20
-    },
-    {
-      _id: "3",
-      name: "Product 3",
-      description: "Description of product 3",
-      price: 30,
-      img: "https://via.placeholder.com/150",
-      stockQuantity: 30
-    }
-  ];
+  public products: Product[] = [];
 
   public selectedProduct: Product = {
     _id: "",
@@ -51,8 +28,16 @@ export class HomePage implements OnInit {
     stockQuantity: 0
   };
 
-  ngOnInit(): void {
+  public constructor(private http: HttpClient, private authService: AuthService) { }
 
+  ngOnInit(): void {
+    this.fetchProducts();
+  }
+
+  public fetchProducts(): void {
+    this.http.get("http://localhost:8080/api/products").subscribe((response: any) => {
+      this.products = response.products;
+    });
   }
 
   //Se ejecuta por medio de un evento perteneciente a un card de producto
@@ -71,6 +56,13 @@ export class HomePage implements OnInit {
 
   //Se ejecuta por medio de un evento perteneciente a un componente de vista de producto
   public addToCart(product: Product): void {
+    //Si el usuario no esta autenticado, se le redirige a la pagina de login
+    if (!this.authService.hasToken()) {
+      window.location.href = "/login";
+      return;
+    }
+
+    //Si el usuario esta autenticado, se añade el producto al carrito
     console.log("Product added to cart", product);
   }
 }
