@@ -1,12 +1,10 @@
-//import { Types } from 'mongoose';
-
 export interface CartProduct {
-    productId: any; //ObjectId de mongoDB -> Types.ObjectId
+    productId: string;
     quantity: number;
 }
 
 export interface Cart {
     _id: string;
-    userId: any; //ObjectId de mongoDB -> Types.ObjectId
+    userId: string;
     products: CartProduct[];
 }

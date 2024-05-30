@@ -1,0 +1,16 @@
+<h1 class="text-center">Carrito</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="cart.products.length === 0" class="alert alert-info" role="alert">
+                No hay productos en el carrito
+            </div>
+            <div *ngIf="cart.products.length > 0">
+                <div class="card mb-3" *ngFor="let product of products">
+                    <app-product-tile [product]="product" (removeProduct)="removeProduct($event)" (addProduct)="addProduct($event)"></app-product-tile>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img [src]="product.img" class="img-fluid rounded-start" alt="Imagen de producto" />
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">
+                    Precio: ${{ product.price }}
+                </p>
+                <p class="card-text">
+                    {{ product.description }}
+                </p>
+                <button class="btn" (click)="onAddProduct()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+                        <path fill="#00bfff" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z" />
+                    </svg>
+                </button>
+                <span>{{ product.quantity }}</span>
+                <button class="btn" (click)="onRemoveProduct()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+                        <path fill="#ff0000" d="M6 13v-2h12v2z" />
+                    </svg>
+                </button>
+                <p class="card-text">
+                    <small class="text-muted">Unidades disponibles: {{ product.stockQuantity }}</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
