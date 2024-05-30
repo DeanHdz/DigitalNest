@@ -86,7 +86,7 @@ export class PaymentPage implements OnInit {
     console.log("Products: ", products);
     const TotalPrice = this.totalPrice;
     const shippingAddress = this.shippingAddress;
-    const status = "pending";
+    const status = "en proceso de entrega";
 
     // Crear una nueva orden
     console.log("Creating order..." + userId + " " + products + " " + TotalPrice + " " + shippingAddress + " " + status);

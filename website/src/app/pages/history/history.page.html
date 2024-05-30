@@ -1,1 +1,17 @@
-<p>history works!</p>
+<h1 class="text-center">Historial de pedidos</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="orders.length === 0" class="alert alert-info" role="alert">
+                No hay pedidos realizados
+            </div>
+            
+            <div *ngIf="orders.length > 0">
+                <div class="card mb-3" *ngFor="let order of orders">
+                    <app-order-tile [order]="order"></app-order-tile>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
