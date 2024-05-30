@@ -1,1 +1,25 @@
-<p>payment works!</p>
+<h1 class="text-center">Proceso de pago</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="cart.products.length === 0" class="alert alert-info" role="alert">
+                No hay productos en el carrito
+            </div>
+            <ng-container *ngIf="cart.products.length > 0">
+                <div>
+                    <form>
+                        <label for="shippingAddress" class="form-label">Dirección de envío</label>
+                        <input type="text" class="form-control" id="shippingAddress" [(ngModel)]="shippingAddress"
+                            name="shippingAddress" required>
+                        <div class="form-text">Por favor, ingrese la dirección de envío</div>
+                        <div class="d-flex justify-content-center mb-3">
+                            <button class="btn btn-primary" (click)="purchase()">Pagar</button>
+                        </div>
+                    </form>
+                </div>
+            </ng-container>
+
+        </div>
+    </div>
+</div>

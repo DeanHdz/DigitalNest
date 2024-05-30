@@ -1,12 +1,93 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProductTileComponent } from '../../components/product-tile/product-tile.component';
+import { Cart, CartProduct } from '../../interfaces/cart.interface';
+import { NgFor, NgIf } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { CartService } from '../../services/cart.service';
+import { FormsModule } from '@angular/forms';
+import { Product } from '../../interfaces/product.interface';
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, NgIf, NgFor, ProductTileComponent],
   templateUrl: './payment.page.html',
-  styleUrl: './payment.page.css'
+  styleUrls: ['./payment.page.css']
 })
-export class PaymentPage {
+export class PaymentPage implements OnInit {
+  cart: Cart = {
+    _id: "",
+    userId: "",
+    products: []
+  };
 
+  products: Product[] = []; // Declarar `products` como propiedad de la clase
+  shippingAddress: string = "";
+  totalPrice: number = 0;
+
+  constructor(private authService: AuthService, private cartService: CartService) { }
+
+  ngOnInit(): void {
+    const userId = this.authService.getUserIdFromToken();
+    if (userId) {
+      this.cartService.getCart().subscribe(
+        (cart: Cart) => {
+          this.cart = cart;
+          //console.log("Cart: ", this.cart);
+        }
+      );
+      this.cartService.getProducts().subscribe(
+        (products: Product[]) => {
+          this.products = products;
+          //console.log("Products: ", this.products);
+          this.totalPrice = this.calculateTotalPrice();
+        }
+      );
+    }
+  }
+
+  calculateTotalPrice(): number {
+    let totalPrice = 0;
+    let productsExt: Product[] = [];
+
+    this.products.forEach(product => {
+      const cartProduct = this.cart.products.find(p => p.productId === product._id);
+      if (cartProduct) {
+        product.quantity = cartProduct.quantity;
+        productsExt.push(product);
+      }
+    });
+
+    productsExt.forEach(product => {
+      totalPrice += product.price * (product.quantity ?? 1);
+    });
+
+    console.log("Total Price: ", totalPrice);
+    return totalPrice;
+  }
+
+  purchase(): void {
+    // Si no hay un token en la sesión actual, se redirige al usuario a la página de login
+    if (!this.authService.hasToken()) {
+      window.location.href = "/login";
+      return;
+    }
+
+    // Verificar si el usuario está autenticado recuperando el id del usuario desde el token
+    const userId = this.authService.getUserIdFromToken();
+    if (!userId) {
+      window.location.href = "/login";
+      return;
+    }
+
+    const products = this.products;
+    const TotalPrice = this.totalPrice;
+    const shippingAddress = this.shippingAddress;
+    const status = "pending";
+
+    this.cartService.createOrder(userId, products, TotalPrice, shippingAddress, status);
+
+    // Si el usuario está autenticado, se redirige al usuario a la página de historial
+    //window.location.href = "/history";
+  }
 }

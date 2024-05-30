@@ -20,7 +20,27 @@ export class CartPage implements OnInit {
     products: []
   };
 
-  constructor(private authService: AuthService, private cartService: CartService) { 
+  constructor(private authService: AuthService, private cartService: CartService) { }
+
+  ngOnInit(): void {
+    //Verificar si el usuario esta autenticado recuperando el id del usuario desde el token
+    const userId = this.authService.getUserIdFromToken();
+    if (!userId) {
+      window.location.href = "/login";
+      return;
+    }
+    this.cartService.getCart().subscribe((cart: Cart) => {
+      this.cart = cart; // Actualizar el carrito
+    });
+  }
+
+  checkOut(): void {
+    //Si no hay un token en la sesion actual, se redirige al usuario a la pagina de login
+    if (!this.authService.hasToken()) {
+      window.location.href = "/login";
+      return;
+    }
+
     //Verificar si el usuario esta autenticado recuperando el id del usuario desde el token
     const userId = this.authService.getUserIdFromToken();
     if (!userId) {
@@ -28,13 +48,8 @@ export class CartPage implements OnInit {
       return;
     }
 
-    this.fetchCart(userId); // Obtener el carrito del usuario
-  }
-
-  ngOnInit(): void {
-    this.cartService.getCart().subscribe((cart: Cart) => {
-      this.cart = cart; // Actualizar el carrito
-    });
+    //Si el usuario esta autenticado, se redirige al usuario a la pagina de checkout
+    window.location.href = "/payment";
   }
   
   addProduct(product: CartProduct): void {
