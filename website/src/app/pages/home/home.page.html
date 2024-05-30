@@ -7,12 +7,12 @@
     </div>
 </div>
 
-<h1 class="text-center">Te podría gustar: </h1>
-
-<div class="container">
+<div class="container mt-4 mb-4">
+    <h1 class="text-center">Te podría gustar: </h1>
     <div class="row">
         <div *ngFor="let product of products" class="col-md-4 col-sm-6 col-lg-3">
             <app-product-card [product]="product"></app-product-card>
         </div>
     </div>
 </div>
+
