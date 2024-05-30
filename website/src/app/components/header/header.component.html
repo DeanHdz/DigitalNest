@@ -1,26 +1,25 @@
 <header>
-  <nav class="bg-dark d-flex align-items-center justify-content-center">
+  <nav class="bg-dark d-flex align-items-center">
 
-    <div class="d-inline-flex">
+    <div class="col d-inline-flex">
       <a class="nav-link text-white ms-4 me-4" href="/home">Inicio</a>
       <ng-container *ngIf="isLoggedIn">
         <a class="nav-link text-white ms-4 me-4" href="/history">Pedidos realizados</a>
       </ng-container>
     </div>
 
-    <div class="col-2 text-center">
+    <div class="col text-center">
       <a href="/home">
         <img src="../../../assets/images/DigitalNest-logo-removebg-cropped.png" class="img-fluid" alt="DigitalNest"
           id="headerLogo">
       </a>
     </div>
 
-    <div class="d-inline-flex">
+    <div class="col d-inline-flex">
+      <div class="d-inline-flex ms-auto">
       <ng-container *ngIf="!isLoggedIn">
-        <div class="ms-auto">
           <a class="nav-link text-white ms-4 me-4" href="/login">Iniciar Sesión</a>
           <a class="nav-link text-white ms-4 me-4" href="/register">Registrarse</a>
-        </div>
       </ng-container>
 
       <ng-container *ngIf="isLoggedIn">
@@ -33,7 +32,20 @@
           <span class="badge bg-primary rounded-pill">{{ cartItems }}</span>
         </a>
       </ng-container>
+
+      </div>
     </div>
 
   </nav>
+
+  <ng-container *ngIf="isLoggedIn">
+    <div class="bg-secondary d-flex align-items-center justify-content-center">
+      <div class="d-inline-flex">
+        <span>
+          <span class="text-white">¡Hola, {{ user?.username ? user.username : "Usuario" }}!</span>
+        </span>
+      </div>
+    </div>
+  </ng-container>
+
 </header>
