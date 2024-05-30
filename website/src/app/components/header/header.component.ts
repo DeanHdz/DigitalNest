@@ -30,6 +30,11 @@ export class HeaderComponent implements OnInit {
         this.isLoggedIn = loggedIn;
       }
     );
+    this.authService.getUser().subscribe(
+      (user: User) => {
+        this.user = user;
+      }
+    );
   }
 
   public onLogout(): void {

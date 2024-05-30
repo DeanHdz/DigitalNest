@@ -20,9 +20,9 @@ export class ProductCardComponent {
     stockQuantity: 0
   };
 
-  @Output() public addToCart: EventEmitter<Product> = new EventEmitter<Product>();
+  @Output() public ViewProduct: EventEmitter<Product> = new EventEmitter<Product>();
 
-  public onAddToCart(): void {
-    this.addToCart.emit(this.product);
+  public onViewProduct(): void {
+    this.ViewProduct.emit(this.product);
   }
 }

@@ -33,12 +33,7 @@ export class LoginPage {
       next: (response) => {
         console.log(response);
         this.authService.setToken(response.token);
-        /*if (response.token.role === "admin") {
-          window.location.href = "/admin";
-        }
-        else {
-          window.location.href = "/home";
-        }*/
+        window.location.href = "/home";
       },
       error: (error) => {
         console.error(error);

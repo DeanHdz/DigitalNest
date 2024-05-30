@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { Product } from '../../interfaces/product.interface';
 import { NgFor } from '@angular/common';
@@ -10,7 +10,12 @@ import { NgFor } from '@angular/common';
   templateUrl: './home.page.html',
   styleUrl: './home.page.css'
 })
-export class HomePage {
+export class HomePage implements OnInit{
+
+  ngOnInit(): void {
+    
+  }
+
   public products: Product[] = [
     {
       _id: "1",

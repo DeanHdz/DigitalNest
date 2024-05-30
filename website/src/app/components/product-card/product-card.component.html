@@ -2,7 +2,7 @@
     <img class="card-img-top" [src]="product.img" alt="Imagen" />
     <div class="card-body">
         <h4 class="card-title">{{ product.name }}</h4>
-        <p class="card-text">{{ product.price }}</p>
-        <button class="btn btn-primary" (click)="onAddToCart()">Agregar a carrito</button>
+        <p class="card-text">${{ product.price }}</p>
+        <button class="btn btn-primary" (click)="onViewProduct()">Ver Producto</button>
     </div>
 </div>
