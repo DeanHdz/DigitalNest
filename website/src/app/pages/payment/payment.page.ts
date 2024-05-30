@@ -33,13 +33,11 @@ export class PaymentPage implements OnInit {
       this.cartService.getCart().subscribe(
         (cart: Cart) => {
           this.cart = cart;
-          //console.log("Cart: ", this.cart);
         }
       );
       this.cartService.getProducts().subscribe(
         (products: Product[]) => {
           this.products = products;
-          //console.log("Products: ", this.products);
           this.totalPrice = this.calculateTotalPrice();
         }
       );
@@ -59,10 +57,14 @@ export class PaymentPage implements OnInit {
     });
 
     productsExt.forEach(product => {
+      console.log("Product: ", product);
       totalPrice += product.price * (product.quantity ?? 1);
     });
 
     console.log("Total Price: ", totalPrice);
+    console.log("Cart Products: ", productsExt);
+    console.log("Cart: ", this.cart.products);
+    console.log("Products: ", this.products);
     return totalPrice;
   }
 

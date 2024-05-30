@@ -1,5 +1,6 @@
 const { request, response } = require('express'); //Incluimos express para poder usar request y response
 const Cart = require('../models/cart'); //Incluimos el modelo Cart para poder hacer operaciones con la base de datos
+const Product = require('../models/product'); //Incluimos el modelo Product para poder hacer operaciones con la base de datos
 
 const getCarts = (req = request, res = response) => {
     Cart.find().then(
@@ -221,10 +222,50 @@ const getCartByUserId = (req = request, res = response) => {
     );
 }
 
+// Retornar todos los productos originales, utilizando el id de cada producto en el carrito para buscarlos en la base de datos
+const getProductsByUserIdCart = (req = request, res = response) => {
+    const userId = req.params.userId;
+
+    Cart.findOne({ userId: userId }).then(
+        (cart) => {
+            if (cart) {
+                const productIds = cart.products.map(product => product.productId);
+
+                Product.find({ _id: { $in: productIds } }).then(
+                    (products) => {
+                        res.status(200).json({
+                            products
+                        });
+                    }
+                ).catch(
+                    (error) => {
+                        res.status(500).json({
+                            message: "Error al buscar los productos",
+                            error
+                        });
+                    }
+                );
+            } else {
+                res.status(404).json({
+                    message: "No se encontró el carrito"
+                });
+            }
+        }
+    ).catch(
+        (error) => {
+            res.status(500).json({
+                message: "Error al buscar el carrito",
+                error
+            });
+        }
+    );
+}
+
 module.exports = {
     getCarts,
     getCart,
     getCartByUserId,
+    getProductsByUserIdCart,
     createCart,
     addProduct,
     removeProduct,

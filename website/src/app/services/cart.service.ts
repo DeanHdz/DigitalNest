@@ -58,14 +58,14 @@ export class CartService {
 
   public fetchProducts(userId: string): void {
     const token = localStorage.getItem('auth_token') ?? "";
-    this.http.get(`http://localhost:8080/api/carts/user/${userId}`, {
+    this.http.get(`http://localhost:8080/api/carts/user/${userId}/products`, {
       headers: {
         "Authorization": token
       }
     }).subscribe({
       next: (response: any) => {
         //console.log(response);
-        this.products = response.cart.products;
+        this.products = response.products;
         this.productsSubject.next(this.products);  // Emitir el nuevo valor del listado de productos
       },
       error: (error: any) => {
