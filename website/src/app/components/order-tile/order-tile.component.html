@@ -7,8 +7,18 @@
                     Total pagado: ${{ order.totalPrice }}
                 </p>
                 <p class="card-text">
-                    {{ order.shippingAddress }}
+                    Dirección de entrega: {{ order.shippingAddress }}
                 </p>
+                <p class="card-text">
+                    Listado de productos:
+                </p>
+                <ul class="list-group
+                    list-group-flush">
+                    <li class="list-group
+                        list-group-item" *ngFor="let product of order.products">
+                        idProducto: {{ product.productId }} - Cantidad: {{ product.quantity }}
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

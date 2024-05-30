@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Order, OrderProduct } from '../../interfaces/order.interface';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-order-tile',
   standalone: true,
-  imports: [],
+  imports: [NgIf, NgFor],
   templateUrl: './order-tile.component.html',
   styleUrl: './order-tile.component.css'
 })
