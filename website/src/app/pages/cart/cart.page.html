@@ -7,7 +7,7 @@
                 No hay productos en el carrito
             </div>
             <div *ngIf="cart.products.length > 0">
-                <div class="card mb-3" *ngFor="let product of products">
+                <div class="card mb-3" *ngFor="let product of cart.products">
                     <app-product-tile [product]="product" (removeProduct)="removeProduct($event)" (addProduct)="addProduct($event)"></app-product-tile>
                 </div>
             </div>

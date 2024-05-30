@@ -52,7 +52,7 @@ const createCart = (req = request, res = response) => {
     );
 }
 
-const addProductToCart = (req = request, res = response) => {
+const addProduct = (req = request, res = response) => {
     const userId = req.params.userId;
     const productId = req.params.productId;
 
@@ -90,6 +90,55 @@ const addProductToCart = (req = request, res = response) => {
             (error) => {
                 res.status(400).json({
                     msg: "Product not added to cart: " + error.message
+                });
+                console.error('Error al actualizar el carrito:', error);
+            }
+        );
+}
+
+const removeProduct = (req = request, res = response) => {
+    const userId = req.params.userId;
+    const productId = req.params.productId;
+
+    Cart.findOne({ userId })
+        .then(cart => {
+            if (cart) {
+                const quantity = 1;
+
+                // Si el carrito existe, verificamos si el producto ya está en el carrito usando su id
+                const existingProductIndex = cart.products.findIndex(product => product.productId.toString() === productId);
+
+                if (existingProductIndex !== -1) {
+                    if (cart.products[existingProductIndex].quantity > quantity) {
+                    // Si el producto ya está en el carrito, actualizamos su cantidad
+                    cart.products[existingProductIndex].quantity -= quantity;
+                    } else {
+                    // Si el producto ya está en el carrito, lo eliminamos
+                    cart.products.splice(existingProductIndex, 1);
+                    }
+                } else {
+                    // Si el producto no está en el carrito, retornamos un error
+                    return Promise.reject(new Error('Product not found in cart.'));
+                }
+
+                // Guardamos los cambios en el carrito
+                return cart.save();
+            } else {
+                // Si el carrito no existe, retornamos un error
+                return Promise.reject(new Error('No cart found for user.'));
+            }
+        }).then(
+            (updatedCart) => {
+                res.status(200).json({
+                    msg: "Product removed from cart",
+                    cart: updatedCart
+                });
+                console.log('Carrito actualizado:', updatedCart);
+            }
+        ).catch(
+            (error) => {
+                res.status(400).json({
+                    msg: "Product not removed from cart: " + error.message
                 });
                 console.error('Error al actualizar el carrito:', error);
             }
@@ -177,7 +226,8 @@ module.exports = {
     getCart,
     getCartByUserId,
     createCart,
-    addProductToCart,
+    addProduct,
+    removeProduct,
     updateCart,
     deleteCart
 }

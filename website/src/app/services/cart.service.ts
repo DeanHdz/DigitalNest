@@ -37,7 +37,7 @@ export class CartService {
       }
     }).subscribe({
       next: (response: any) => {
-        console.log(response);
+        //console.log(response);
         this.cart = response.cart;
         this.cartSubject.next(this.cart);  // Emitir el nuevo valor del carrito
       },
@@ -55,7 +55,7 @@ export class CartService {
       }
     }).subscribe({
       next: (response: any) => {
-        console.log(response);
+        //console.log(response);
         this.cart = response.cart;
         this.cartSubject.next(this.cart);  // Emitir el nuevo valor del carrito
       },
@@ -73,7 +73,7 @@ export class CartService {
       }
     }).subscribe({
       next: (response: any) => {
-        console.log(response);
+        //console.log(response);
         this.cart = response.cart;
         this.cartSubject.next(this.cart);  // Emitir el nuevo valor del carrito
       },

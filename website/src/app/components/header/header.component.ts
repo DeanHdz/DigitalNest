@@ -42,9 +42,7 @@ export class HeaderComponent implements OnInit {
     );
     this.cartService.getCart().subscribe(
       (cart: Cart) => {
-        console.log(cart);
         this.cart = cart;
-        console.log(this.cart);
       }
     );
   }
