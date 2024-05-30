@@ -82,14 +82,21 @@ export class PaymentPage implements OnInit {
       return;
     }
 
-    const products = this.products;
+    const products = this.cart.products;
+    console.log("Products: ", products);
     const TotalPrice = this.totalPrice;
     const shippingAddress = this.shippingAddress;
     const status = "pending";
 
+    // Crear una nueva orden
+    console.log("Creating order..." + userId + " " + products + " " + TotalPrice + " " + shippingAddress + " " + status);
     this.cartService.createOrder(userId, products, TotalPrice, shippingAddress, status);
 
-    // Si el usuario está autenticado, se redirige al usuario a la página de historial
-    //window.location.href = "/history";
+    if(shippingAddress === ""){
+      alert("Por favor, ingrese una dirección de envío válida.");
+    }
+    else{
+      window.location.href = "/history";
+    }
   }
 }

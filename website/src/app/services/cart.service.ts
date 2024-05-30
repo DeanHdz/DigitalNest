@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth.service';
-import { Cart } from '../interfaces/cart.interface';
+import { Cart, CartProduct } from '../interfaces/cart.interface';
 import { Product } from '../interfaces/product.interface';
 
 @Injectable({
@@ -128,7 +128,7 @@ export class CartService {
     });
   }
 
-  public createOrder(userId: string, products: Product[], totalPrice: number, shippingAddress: string, status: string): void {
+  public createOrder(userId: string, products: CartProduct[], totalPrice: number, shippingAddress: string, status: string): void {
     const token = localStorage.getItem('auth_token') ?? "";
     this.http.post(`http://localhost:8080/api/orders`, {
       userId,
